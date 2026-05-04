@@ -1,0 +1,18 @@
+{
+	"extends": ["./.svelte-kit/tsconfig.json"],
+	"compilerOptions": {
+		"strict": true,
+		"noImplicitAny": true,
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+		"sourceMap": true,
+		"skipLibCheck": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"allowUnreachableCode": false,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true
+	},
+	"include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.svelte"],
+	"exclude": []
+}

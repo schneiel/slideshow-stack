@@ -1,0 +1,80 @@
+# Dev version with debug builds and faster compilation
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: slideshow-stack-dev
+  name: slideshow-stack-dev
+spec:
+  containers:
+  - args:
+    - -l
+    - udp/0.0.0.0:7447
+    - --adminspace-permissions=rw
+    - --rest-http-port
+    - "8000"
+    image: eclipse/zenoh:1.8.0-41-g1ef59de98
+    name: zenoh
+    ports:
+    - containerPort: 7447
+      hostPort: 7447
+      protocol: UDP
+    - containerPort: 8000
+      hostPort: 8000
+    resources:
+      limits:
+        memory: 125000Ki
+  - env:
+    - name: CORS_ORIGIN
+      value: http://localhost:7381
+    - name: PORT
+      value: "61532"
+    - name: DATABASE_URL
+      value: sqlite:/app/data/slideshows.db
+    - name: MEDIA_DIR
+      value: /app/media
+    - name: LOG_LEVEL
+      value: debug
+    - name: CORS_ENABLED
+      value: "true"
+    image: localhost/slideshow-store:dev
+    name: slideshow-stack-store
+    ports:
+    - containerPort: 61532
+      hostPort: 61532
+    resources:
+      limits:
+        memory: 250000Ki
+  - env:
+    - name: RUST_LOG
+      value: debug
+    - name: HTTP_PORT
+      value: "9247"
+    - name: ZENOH_CONNECT_ENDPOINTS
+      value: udp/zenoh:7447
+    - name: CORS_ENABLED
+      value: "true"
+    - name: CORS_ORIGIN
+      value: http://localhost:7381
+    image: localhost/slideshow-playback-server:dev
+    name: slideshow-stack-playback-server
+    resources:
+      limits:
+        memory: 125000Ki
+  - env:
+    - name: VITE_STORE_URL
+      value: http://localhost:61532
+    image: localhost/slideshow-control-panel:latest
+    name: control-panel
+    ports:
+    - containerPort: 7381
+      hostPort: 7381
+    resources:
+      limits:
+        memory: 125000Ki
+    mounts:
+    - type: bind
+      source: ../containers/Caddyfile
+      target: /etc/caddy/Caddyfile
+      readOnly: true
+  restartPolicy: Always

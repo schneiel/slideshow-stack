@@ -1,0 +1,20 @@
+[Container]
+ContainerName=slideshow-playback-server
+Image=localhost/slideshow-playback-server:latest
+
+Environment=HTTP_PORT=9247
+Environment=ZENOH_CONNECT_ENDPOINTS=udp/127.0.0.1:7447
+Environment=RUST_LOG=info
+Environment=CORS_ENABLED=true
+Environment=CORS_ORIGIN=http://localhost:7381
+
+Network=slideshow-network
+
+HealthCmd=curl -sf http://localhost:9247/api/health
+HealthInterval=30s
+HealthTimeout=10s
+HealthStartPeriod=10s
+
+[Service]
+TimeoutStartSec=60
+MemoryMax=384M

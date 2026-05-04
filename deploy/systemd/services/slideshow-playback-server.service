@@ -1,0 +1,26 @@
+[Unit]
+Description=Slideshow Playback Server
+After=slideshow-zenoh.service
+Requires=slideshow-zenoh.service
+
+[Service]
+Type=simple
+User=%RUN_AS%
+Environment="HTTP_PORT=9247"
+Environment="ZENOH_CONNECT_ENDPOINTS=udp/127.0.0.1:7447"
+Environment="RUST_LOG=info"
+Environment="CORS_ENABLED=true"
+Environment="CORS_ORIGIN=http://localhost:7381"
+ExecStart=%BIN_DIR%/slideshow-playback-server
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=60
+TimeoutStopSec=10
+MemoryMax=384M
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=slideshow-playback
+
+[Install]
+WantedBy=multi-user.target

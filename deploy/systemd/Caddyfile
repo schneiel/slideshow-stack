@@ -1,0 +1,44 @@
+{
+    admin off
+    http_port 7381
+}
+
+:7381 {
+    handle_path /store/* {
+        reverse_proxy localhost:61532 {
+            flush_interval -1
+            header_up Connection "keep-alive"
+            header_up Cache-Control "no-cache"
+            transport http {
+                response_header_timeout 0
+                expect_continue_timeout 0s
+            }
+        }
+    }
+
+    handle_path /playback/* {
+        reverse_proxy localhost:9247 {
+            flush_interval -1
+            header_up Connection "keep-alive"
+            header_up Cache-Control "no-cache"
+            transport http {
+                response_header_timeout 0
+                expect_continue_timeout 0s
+            }
+        }
+    }
+
+    handle {
+        root * /var/lib/slideshow-control-panel
+        try_files {path} /index.html
+        file_server
+        encode zstd gzip
+    }
+
+    header {
+        X-Frame-Options "SAMEORIGIN"
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+        Cache-Control "no-cache"
+    }
+}

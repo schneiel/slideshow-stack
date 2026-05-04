@@ -1,0 +1,19 @@
+[package]
+name = "sdl3-image-sys"
+version = "0.1.0"
+edition = "2021"
+links = "SDL3_image"
+
+[lints.clippy]
+all = "allow"
+
+[dependencies]
+libc = "0.2"
+
+[build-dependencies]
+bindgen = "0.66"
+cmake = "0.1"
+
+[features]
+drm = []
+desktop = []

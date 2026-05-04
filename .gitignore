@@ -1,0 +1,121 @@
+# === IDEs and Editors ===
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code (allow some files)
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+
+# Emacs
+*~
+
+# === Operating System ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Linux
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# === Logs ===
+*.log
+logs/
+
+# === Temporary Files ===
+*.tmp
+*.temp
+.cache/
+.temp/
+.tmp/
+
+# Process ID files
+.pids
+*.pid
+
+# === Security ===
+# Private keys and certificates
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+.secrets/
+
+# === Other ===
+# Local development
+.local/
+*.local.*
+temp/
+tmp/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Rust
+target/
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Miscellaneous
+*.tgz
+*.tar.gz
+*.zip
+
+# Direnv
+.direnv/
+.envrc
+
+# Rasperry Pi Sysroots for cross compiling
+arm-linux-gnueabihf/
+client_state.json

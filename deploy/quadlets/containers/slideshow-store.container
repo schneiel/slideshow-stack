@@ -1,0 +1,27 @@
+[Container]
+ContainerName=slideshow-store
+Image=localhost/slideshow-store:latest
+
+PublishPort=61532:61532
+
+Environment=PORT=61532
+Environment=DATABASE_URL=sqlite:/app/data/slideshows.db
+Environment=MEDIA_DIR=/app/media
+Environment=LOG_LEVEL=info
+Environment=CORS_ENABLED=true
+Environment=CORS_ORIGIN=http://localhost:7381
+
+Volume=store-media:/app/media
+Volume=store-db:/app/data
+
+Network=slideshow-network
+NetworkAlias=store
+
+HealthCmd=curl -sf http://localhost:61532/api/health
+HealthInterval=30s
+HealthTimeout=10s
+HealthStartPeriod=10s
+
+[Service]
+TimeoutStartSec=60
+MemoryMax=512M

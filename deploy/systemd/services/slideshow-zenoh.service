@@ -1,0 +1,21 @@
+[Unit]
+Description=Slideshow Zenoh Router
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=%RUN_AS%
+ExecStart=%BIN_DIR%/zenohd -l udp/0.0.0.0:7447 --adminspace-permissions=rw --rest-http-port 8000
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=60
+TimeoutStopSec=10
+MemoryMax=256M
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=slideshow-zenoh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+[Container]
+ContainerName=slideshow-control-panel
+Image=localhost/slideshow-control-panel:latest
+ConfigFile=../../containers/Caddyfile
+
+PublishPort=7381:7381
+
+Environment=VITE_STORE_URL=http://localhost:61532
+
+Network=slideshow-network
+
+HealthCmd=curl -sf http://localhost:7381/
+HealthInterval=30s
+HealthTimeout=10s
+HealthStartPeriod=10s
+
+[Service]
+TimeoutStartSec=60
+MemoryMax=128M

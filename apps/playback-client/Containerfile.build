@@ -1,0 +1,28 @@
+FROM rust:1.93-bookworm AS builder
+
+RUN apt-get update && \
+    apt-get install -y \
+    clang \
+    cmake \
+    libssl-dev \
+    zlib1g-dev \
+    nasm \
+    yasm \
+    pkg-config \
+    libx264-dev \
+    libmp3lame-dev \
+    libopus-dev \
+    libvpx-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+RUN curl -fsSL https://ziglang.org/download/0.16.0/zig-x86_64-linux-0.16.0.tar.xz | tar -xJ && \
+    mv zig-x86_64-linux-0.16.0 /opt/zig && \
+    rm -rf /root/.cache
+
+COPY . .
+
+RUN rustup target add armv7-unknown-linux-gnueabihf && \
+    cargo install cargo-zigbuild

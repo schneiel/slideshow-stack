@@ -1,0 +1,27 @@
+# Environment
+.env
+!.env.dev
+!.env.prod
+.env.*
+
+# Autostart
+autostart.json
+
+# Client state
+client_state.json
+
+# Rust
+/target
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+
+# Media
+/media

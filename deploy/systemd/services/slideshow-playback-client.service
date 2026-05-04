@@ -1,0 +1,25 @@
+[Unit]
+Description=Slideshow Playback Client
+After=network.target
+
+[Service]
+Type=simple
+User=%RUN_AS%
+WorkingDirectory=%INSTALL_DIR%
+Environment=ZENOH_CONNECT_ENDPOINTS=%ZENOH_ENDPOINTS%
+Environment=SYNC_SERVER_URL=%SYNC_SERVER_URL%
+Environment=TARGET_FPS=%TARGET_FPS%
+Environment=RUST_LOG=info
+Environment=MAX_CONCURRENT_DOWNLOADS=2
+Environment=DISPLAY_WIDTH=1920
+Environment=DISPLAY_HEIGHT=1080
+Environment=LD_LIBRARY_PATH=%INSTALL_DIR%/lib
+Environment=MEDIA_DIR=%INSTALL_DIR%/media
+Environment=AUTOSTART_FILE=%INSTALL_DIR%/autostart.json
+Environment=CLIENT_STATE_FILE=%INSTALL_DIR%/client_state.json
+ExecStart=%INSTALL_DIR%/slideshow-playback-client
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

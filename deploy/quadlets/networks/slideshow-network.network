@@ -1,0 +1,3 @@
+[Network]
+NetworkName=slideshow-network
+Driver=bridge

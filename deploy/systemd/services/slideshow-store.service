@@ -1,0 +1,26 @@
+[Unit]
+Description=Slideshow Store API Server
+After=network-online.target
+
+[Service]
+Type=simple
+User=%RUN_AS%
+Environment="PORT=61532"
+Environment="DATABASE_URL=sqlite:%STORE_DATA_DIR%/slideshows.db"
+Environment="MEDIA_DIR=%STORE_DATA_DIR%/media"
+Environment="LOG_LEVEL=info"
+Environment="CORS_ENABLED=true"
+Environment="CORS_ORIGIN=http://localhost:7381"
+ExecStart=%BIN_DIR%/slideshow-store
+Restart=on-failure
+RestartSec=5
+TimeoutStartSec=60
+TimeoutStopSec=10
+MemoryMax=512M
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=slideshow-store
+
+[Install]
+WantedBy=multi-user.target

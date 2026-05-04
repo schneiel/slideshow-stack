@@ -1,0 +1,32 @@
+[package]
+name = "playback-client"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = ["desktop"]
+drm = ["video-rs/drm", "slideshow-rs/drm", "sdl3-rs/drm"]
+desktop = ["video-rs/desktop", "slideshow-rs/desktop", "sdl3-rs/desktop"]
+
+[dependencies]
+slideshow-rs = { path = "../../libs/slideshow-rs" }
+video-rs = { path = "../../libs/video-rs" }
+sdl3-rs = { path = "../../libs/sdl3-rs" }
+sdl3-sys = { path = "../../libs/sdl3-sys" }
+sdl3-image-sys = { path = "../../libs/sdl3-image-sys" }
+ffmpeg-sys = { path = "../../libs/ffmpeg-sys" }
+tokio = { version = "1.42", features = ["rt", "time", "macros"] }
+zenoh = "1.8"
+futures-util = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+anyhow = "1.0"
+dotenvy = "0.15"
+reqwest = { version = "0.13", features = ["json"], default-features = false }
+sha2 = "0.10"
+ctrlc = "3.5.1"
+chrono = "0.4"
+uuid = { version = "1.11", features = ["v4"] }
+parking_lot = "0.12"

@@ -1,0 +1,5 @@
+target/
+Cargo.lock
+ffmpeg/
+config-*.h
+src/bindings.rs

@@ -1,0 +1,16 @@
+[submodule "libs/sdl3-sys/sdl3"]
+	path = libs/sdl3-sys/sdl3
+	url = https://github.com/libsdl-org/SDL.git
+	commit = a962f40bbba175e9716557a25d5d7965f134a3d3
+[submodule "libs/sdl3-image-sys/sdl3-image"]
+	path = libs/sdl3-image-sys/sdl3-image
+	url = https://github.com/libsdl-org/SDL_image.git
+	commit = ad58ecfc27a1bd09e510ceff8bbbdb1094806476
+[submodule "libs/ffmpeg-sys/ffmpeg"]
+	path = libs/ffmpeg-sys/ffmpeg
+	url = https://git.ffmpeg.org/ffmpeg.git
+	commit = 9047fa1b084f76b1b4d065af2d743df1b40dfb56
+[submodule "libs/sdl3-image-sys/sdl3"]
+	path = libs/sdl3-image-sys/sdl3
+	url = https://github.com/libsdl-org/SDL.git
+	commit = a962f40bbba175e9716557a25d5d7965f134a3d3

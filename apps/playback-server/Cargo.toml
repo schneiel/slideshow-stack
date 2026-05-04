@@ -1,0 +1,21 @@
+[package]
+name = "playback-server"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+zenoh = "1.8"
+bytes = "1"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+axum = { version = "0.8", features = ["json"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+anyhow = "1.0"
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+dashmap = "6"
+chrono = { version = "0.4", features = ["serde"] }
+futures = "0.3"
+tokio-stream = { version = "0.1", features = ["sync"] }
+dotenvy = "0.15"

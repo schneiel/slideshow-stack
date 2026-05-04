@@ -1,0 +1,16 @@
+[package]
+name = "ffmpeg-sys"
+version = "0.1.0"
+edition = "2021"
+links = "FFmpeg"
+
+[lints.clippy]
+all = "allow"
+
+[build-dependencies]
+bindgen = "0.66"
+cc = "1"
+num_cpus = "1"
+
+[features]
+default = []

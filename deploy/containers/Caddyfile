@@ -1,0 +1,29 @@
+{
+    admin off
+    http_port 7381
+}
+
+:7381 {
+    handle_path /store/* {
+        reverse_proxy slideshow-stack-store:61532
+    }
+
+    handle_path /playback/* {
+        reverse_proxy slideshow-stack-playback-server:9247
+    }
+
+    handle {
+        root * /usr/share/caddy
+        try_files {path} /index.html
+        file_server
+    }
+
+    encode gzip
+
+    header {
+        X-Frame-Options "SAMEORIGIN"
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+        Cache-Control "no-cache"
+    }
+}

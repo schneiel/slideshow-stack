@@ -1,0 +1,29 @@
+{
+  mode: "client",
+  connect: {
+    endpoints: ["udp/zenohd:7447"],
+    timeout_ms: -1,
+    exit_on_failure: false,
+    retry: {
+      period_init_ms: 1000,
+      period_max_ms: 30000,
+      period_increase_factor: 2,
+    },
+  },
+  scouting: {
+    multicast: {
+      enabled: false,
+    },
+    gossip: {
+      enabled: false,
+    },
+  },
+  transport: {
+    link: {
+      tx: {
+        lease: 2500,
+        keep_alive: 4,
+      },
+    },
+  },
+}

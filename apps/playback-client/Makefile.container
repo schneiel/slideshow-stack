@@ -1,0 +1,30 @@
+.PHONY: build-image build run clean
+
+IMAGE_NAME = playback-client-cross-build
+TARGET = armv7-unknown-linux-gnueabihf.2.35
+
+CONTAINER_ENGINE := $(shell command -v podman || command -v docker)
+
+build-image:
+	@if ! $(CONTAINER_ENGINE) image inspect $(IMAGE_NAME) > /dev/null 2>&1; then \
+		cd ../.. && $(CONTAINER_ENGINE) build \
+			-f apps/playback-client/Containerfile.build \
+			--target builder \
+			-t $(IMAGE_NAME) \
+			.; \
+	fi
+
+build: build-image
+	$(CONTAINER_ENGINE) run \
+		--rm \
+		-v "$(PWD):/app/apps/playback-client" \
+		-w /app/apps/playback-client \
+		-e PATH="/opt/zig:/usr/local/cargo/bin:$(PATH)" \
+		$(IMAGE_NAME) \
+		cargo zigbuild --target $(TARGET) --release --features drm 2>&1
+
+run:
+	./target/$(TARGET)/release/playback-client
+
+clean:
+	rm -rf target/$(TARGET)

@@ -1,0 +1,132 @@
+name: slideshow-stack
+
+services:
+  zenoh:
+    image: eclipse/zenoh:1.8.0-41-g1ef59de98
+    container_name: slideshow-zenoh
+    command: ["-l", "udp/0.0.0.0:7447", "--adminspace-permissions=rw", "--rest-http-port", "8000"]
+    networks:
+      - slideshow-network
+    ports:
+      - "7447:7447/udp"
+      - "8000:8000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8000/@/local/router || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 2s
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+
+  store:
+    build:
+      context: ../apps/store
+      dockerfile: Containerfile
+    image: localhost/slideshow-store:latest
+    container_name: slideshow-store
+    ports:
+      - "61532:61532"
+    environment:
+      - PORT=61532
+      - DATABASE_URL=sqlite:/app/data/slideshows.db
+      - MEDIA_DIR=/app/media
+      - LOG_LEVEL=info
+      - CORS_ENABLED=true
+      - CORS_ORIGIN=http://localhost:7381,http://localhost:5173
+    volumes:
+      - store-media:/app/media
+      - store-db:/app/data
+    networks:
+      - slideshow-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+    depends_on:
+      zenoh:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:61532/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  playback-server:
+    build:
+      context: ../apps/playback-server
+      dockerfile: Containerfile
+    image: localhost/slideshow-playback-server:latest
+    container_name: slideshow-playback-server
+    environment:
+      - HTTP_PORT=9247
+      - ZENOH_CONNECT_ENDPOINTS=udp/zenoh:7447
+      - RUST_LOG=info
+    networks:
+      - slideshow-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+    depends_on:
+      zenoh:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:9247/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  control-panel:
+    build:
+      context: ../apps/control-panel
+      dockerfile: Containerfile
+    image: localhost/slideshow-control-panel:latest
+    container_name: slideshow-control-panel
+    ports:
+      - "7381:7381"
+    environment:
+      - VITE_STORE_URL=http://localhost:61532
+    volumes:
+      - ../containers/Caddyfile:/etc/caddy/Caddyfile:ro
+    networks:
+      - slideshow-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+    depends_on:
+      zenoh:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:7381/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  slideshow-network:
+    driver: bridge
+
+volumes:
+  store-media:
+    name: store-media
+  store-db:
+    name: store-db

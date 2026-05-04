@@ -1,0 +1,20 @@
+[Unit]
+Description=Slideshow Control Panel (Frontend)
+After=network-online.target slideshow-store.service slideshow-playback-server.service slideshow-zenoh.service
+Requires=slideshow-store.service slideshow-playback-server.service slideshow-zenoh.service
+
+[Service]
+Type=simple
+ExecStartPre=/bin/mkdir -p %CONTROL_PANEL_DATA_DIR%
+ExecStart=%BIN_DIR%/caddy run --config %CADDY_CONFIG_DIR%/Caddyfile
+ExecStop=%BIN_DIR%/caddy stop --config %CADDY_CONFIG_DIR%/Caddyfile
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=10
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=slideshow-control-panel
+
+[Install]
+WantedBy=multi-user.target

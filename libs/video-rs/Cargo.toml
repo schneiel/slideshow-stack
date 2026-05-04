@@ -1,0 +1,18 @@
+[package]
+name = "video-rs"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = []
+drm = ["sdl3-rs/drm", "sdl3-image-rs/drm"]
+desktop = ["sdl3-rs/desktop", "sdl3-image-rs/desktop"]
+
+[dependencies]
+sdl3-rs = { path = "../sdl3-rs" }
+sdl3-image-rs = { path = "../sdl3-image-rs" }
+ffmpeg-rs = { path = "../ffmpeg-rs" }
+libc = "0.2"
+thiserror = "1"
+parking_lot = "0.12"
+serde = { version = "1", features = ["derive"] }

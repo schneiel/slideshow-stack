@@ -1,0 +1,21 @@
+# Environment
+.env
+!.env.dev
+!.env.prod
+.env.*
+
+# Media
+/media
+
+# Rust
+/target
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store

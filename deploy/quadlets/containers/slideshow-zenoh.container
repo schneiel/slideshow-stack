@@ -1,0 +1,19 @@
+[Container]
+ContainerName=slideshow-zenoh
+Image=docker.io/eclipse/zenoh:1.8.0-41-g1ef59de98
+
+Network=slideshow-network
+
+PublishPort=7447:7447/udp
+PublishPort=8000:8000
+
+Exec=-l udp/0.0.0.0:7447 --adminspace-permissions=rw --rest-http-port 8000
+
+HealthCmd=curl -sf http://localhost:8000/@/local/router
+HealthInterval=30s
+HealthTimeout=10s
+HealthStartPeriod=10s
+
+[Service]
+TimeoutStartSec=60
+MemoryMax=256M

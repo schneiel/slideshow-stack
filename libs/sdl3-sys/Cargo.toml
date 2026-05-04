@@ -1,0 +1,16 @@
+[package]
+name = "sdl3-sys"
+version = "0.1.0"
+edition = "2021"
+links = "SDL3"
+
+[lints.clippy]
+all = "allow"
+
+[build-dependencies]
+bindgen = "0.66"
+cmake = "0.1"
+
+[features]
+drm = []
+desktop = []

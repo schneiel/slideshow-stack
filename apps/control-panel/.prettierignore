@@ -1,0 +1,33 @@
+# SvelteKit build output
+.svelte-kit/
+dist/
+build/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Logs
+*.log
+
+yarn-debug.log*
+yarn-error.log*
+
+# Cache
+.cache/
+.temp/
+.tmp/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

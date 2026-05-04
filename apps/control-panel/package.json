@@ -1,0 +1,47 @@
+{
+	"name": "control-panel",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite dev",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"prepare": "svelte-kit sync || echo ''",
+		"lint": "prettier --check --ignore-path .prettierignore . && eslint .",
+		"lint:fix": "prettier --write --ignore-path .prettierignore . && eslint . --fix",
+		"format": "prettier --write --ignore-path .prettierignore .",
+		"lint:css": "stylelint \"**/*.css\"",
+		"knip": "knip",
+		"typecheck": "tsc --noEmit",
+		"typecheck:strict": "tsc --noEmit --strict"
+	},
+	"devDependencies": {
+		"@eslint/compat": "^2.0.5",
+		"@eslint/js": "^10.0.1",
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.57.1",
+		"@sveltejs/vite-plugin-svelte": "^7.0.0",
+		"@types/node": "^24",
+		"esbuild": "^0.24.0",
+		"eslint": "^10.2.1",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-svelte": "^3.17.0",
+		"globals": "^17.5.0",
+		"knip": "^6.6.0",
+		"prettier": "^3.8.0",
+		"prettier-plugin-svelte": "^3.4.1",
+		"stylelint": "^17.0.0",
+		"stylelint-config-standard": "^40.0.0",
+		"svelte": "^5.55.4",
+		"svelte-check": "^4.4.6",
+		"typescript": "^6.0.3",
+		"typescript-eslint": "^8.59.0",
+		"vite": "^8.0.9"
+	},
+	"type": "module",
+	"dependencies": {
+		"@lucide/svelte": "^0.577.0"
+	}
+}

@@ -1,0 +1,36 @@
+# === Dependencies ===
+node_modules/
+
+# === Build outputs ===
+.svelte-kit/
+build/
+dist/
+.output/
+.vercel/
+.netlify/
+
+# === Environment variables ===
+.env
+.env.dev
+.env.prd
+.env.production
+
+# === Testing ===
+coverage/
+.nyc_output/
+
+# === Logs ===
+*.log
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# === IDE ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# === OS ===
+.DS_Store
